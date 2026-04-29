@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Beregeel Clinic</title>
+    <title>Beregeel Clinic | Obstetrics & Gynecology</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -56,7 +56,6 @@
                 <h3><i class="fas fa-user-md"></i> Admin Login</h3>
                 <input type="password" id="adminPass" placeholder="Password">
                 <button id="adminLoginBtn" style="margin-top:12px;">Login</button>
-                <div class="small-text"><i class="fas fa-lock"></i> Password: </div>
             </div>
             <div class="card">
                 <h3><i class="fas fa-user-patient"></i> Patient Login</h3>
@@ -129,11 +128,26 @@
 </div>
 
 <script>
+// ==================== GOOGLE SHEETS URL ====================
 const GOOGLE_SHEETS_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbzP1Q2VPIiAG4roaXICaSkxXqGKpTdw7sxqZFgBeLW1ylTSxHXacN6gU06CbqMerwkMQw/exec";
+
+// ==================== DATA STORAGE ====================
+let STORAGE_KEY = "Beregeel_Complete_Final";
 let appData = { patients: [], medicalRecords: [] };
 
-function loadData() { let s = localStorage.getItem(STORAGE_KEY); if(s) { try { appData = JSON.parse(s); } catch(e) {} } if(!appData.patients) appData.patients = []; if(!appData.medicalRecords) appData.medicalRecords = []; }
-function saveData() { localStorage.setItem(STORAGE_KEY, JSON.stringify(appData)); }
+function loadData() { 
+    let saved = localStorage.getItem(STORAGE_KEY); 
+    if(saved) { 
+        try { appData = JSON.parse(saved); } catch(e) {} 
+    } 
+    if(!appData.patients) appData.patients = []; 
+    if(!appData.medicalRecords) appData.medicalRecords = []; 
+}
+
+function saveData() { 
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(appData)); 
+}
+
 loadData();
 
 function getPatientById(pid) { return appData.patients.find(p => p.id == pid); }
@@ -150,12 +164,20 @@ async function syncToGoogleSheets() {
     if(btn) { btn.disabled = true; btn.innerHTML = 'Syncing...'; }
     try {
         let res = await fetch(GOOGLE_SHEETS_WEBAPP_URL, {
-            method: 'POST', mode: 'cors', headers: { 'Content-Type': 'application/json' },
+            method: 'POST',
+            mode: 'cors',
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ action: 'syncAll', patients: appData.patients, medicalRecords: appData.medicalRecords })
         });
         let result = await res.json();
-        alert(result.success ? 'Synced to Google Sheets!' : 'Sync failed');
-    } catch(e) { alert('Connection error'); }
+        if(result.success) {
+            alert('✅ Data synced to Google Sheets!');
+        } else {
+            alert('Sync failed: ' + (result.error || 'Unknown error'));
+        }
+    } catch(e) {
+        alert('Connection error: ' + e.message);
+    }
     if(btn) { btn.disabled = false; btn.innerHTML = ' Sync to Google Sheets'; }
 }
 
@@ -164,18 +186,22 @@ async function loadFromGoogleSheets() {
         let res = await fetch(GOOGLE_SHEETS_WEBAPP_URL + '?action=getData');
         let result = await res.json();
         if(result.success && result.data) {
-            if(result.data.patients) appData.patients = result.data.patients;
-            if(result.data.medicalRecords) appData.medicalRecords = result.data.medicalRecords;
+            if(result.data.patients && result.data.patients.length > 0) { appData.patients = result.data.patients; }
+            if(result.data.medicalRecords && result.data.medicalRecords.length > 0) { appData.medicalRecords = result.data.medicalRecords; }
             saveData();
-            alert('Loaded from Google Sheets!');
-            if(currentAdminViewPatientId) showAdminPatientTables(currentAdminViewPatientId);
+            alert('✅ Loaded from Google Sheets!');
+            if(currentAdminViewPatientId) showAdminTables(currentAdminViewPatientId);
             renderPatientList();
             if(currentLoggedPatient) renderPatientPreviousRecords();
+        } else {
+            alert('No data found in Google Sheets');
         }
-    } catch(e) { alert('Could not load'); }
+    } catch(e) {
+        alert('Could not load: ' + e.message);
+    }
 }
 
-// ==================== ALL 5 TASK FORMS ====================
+// ==================== TASK FUNCTIONS ====================
 function getEmptyRow(taskType) {
     switch(taskType) {
         case "BloodSugar":
@@ -223,7 +249,7 @@ function renderTable(records, taskType, isAdmin = false) {
             } else if(taskType === "MenstrualPain") {
                 html += `<td>${row.date || ''}</td><td>${row.pain || ''}</td><td>${row.medication || ''}</td><td>${row.nausea || ''}</td><td>${row.workNormal || ''}</td><td>${row.bleedingStart || ''}</td><td>${row.bleedingEnd || ''}</td>`;
             }
-            html += `<td>${record.adminComment || '—'}</td><td>${new Date(record.timestamp).toLocaleDateString()}</td>`;
+            html += `<td>${record.adminComment || '—'}</td><td>${new Date(record.timestamp).toLocaleDateString()}<tr>`;
             if(isAdmin) {
                 html += `<td><button class="comment-btn" data-id="${record.id}" style="background:#e6b422;padding:4px 10px;">Comment</button></td>`;
             }
@@ -239,7 +265,7 @@ function renderEditableForm() {
     let html = `<div class="scroll-table"><table><thead><tr>${headers.map(h => `<th>${h}</th>`).join('')}<th>Actions</th></tr></thead><tbody id="tableRowsBody">`;
     
     currentTableRows.forEach((row, idx) => {
-        html += `<tr>`;
+        html += `<tr data-idx="${idx}">`;
         if(currentTaskType === "BloodSugar") {
             html += `<td><input type="date" data-field="date" value="${row.date}"></td>
                      <td><input type="text" data-field="breakfast_before" value="${row.breakfast_before}" placeholder="value"></td>
@@ -370,11 +396,14 @@ function showTaskForm(taskType) {
 
 function submitRecord(sendWA) {
     let rows = collectRows();
-    if(rows.length === 0) { alert("Fill at least one row"); return; }
+    if(rows.length === 0 || (rows.length === 1 && Object.values(rows[0]).every(v => v === "" || v === false || v === "No" || v === "Not at all"))) { 
+        alert("Please fill at least one row before submitting"); 
+        return; 
+    }
     let record = { id: Date.now(), patientId: currentLoggedPatient.id, taskType: currentTaskType, tableRows: rows, timestamp: Date.now(), adminComment: "" };
     appData.medicalRecords.push(record);
     saveData();
-    alert("Saved!");
+    alert("Saved locally!");
     if(sendWA) {
         let wa = `https://wa.me/${currentLoggedPatient.mobile.replace(/^0/, '+252').replace(/[^0-9]/g,'')}?text=${encodeURIComponent(`My ${currentTaskType} data submitted to Beregeel Clinic.`)}`;
         window.open(wa, '_blank');
@@ -401,9 +430,14 @@ function renderPatientTasks(patient) {
 }
 
 function renderPatientList() {
+    if(appData.patients.length === 0) {
+        document.getElementById('patientListContainer').innerHTML = "<em>No patients registered</em>";
+        return;
+    }
     let html = "<ul style='list-style:none;'>";
-    appData.patients.forEach(p => { html += `<li style="margin-bottom:8px;"><button class="patient-select" data-id="${p.id}">${p.name} (${p.mrn})</button></li>`; });
-    document.getElementById('patientListContainer').innerHTML = html || "<em>No patients</em>";
+    appData.patients.forEach(p => { html += `<li style="margin-bottom:8px;"><button class="patient-select" data-id="${p.id}" style="background:#cbdcd6; padding:8px 15px;">${p.name} (${p.mrn})</button></li>`; });
+    html += "</ul>";
+    document.getElementById('patientListContainer').innerHTML = html;
     document.querySelectorAll('.patient-select').forEach(btn => {
         btn.onclick = () => { currentAdminViewPatientId = parseInt(btn.dataset.id); showAdminTables(currentAdminViewPatientId); };
     });
@@ -422,8 +456,8 @@ function showAdminTables(pid) {
     document.getElementById('taskRecordsView').innerHTML = html;
     document.querySelectorAll('.comment-btn').forEach(btn => {
         btn.onclick = () => {
-            let comment = prompt("Doctor comment:");
-            if(comment) {
+            let comment = prompt("Enter doctor comment:");
+            if(comment && comment.trim()) {
                 let rec = appData.medicalRecords.find(r => r.id === parseInt(btn.dataset.id));
                 if(rec) { rec.adminComment = comment; saveData(); showAdminTables(pid); alert("Comment added"); }
             }
@@ -437,27 +471,34 @@ function registerPatient() {
     let mrn = document.getElementById('regMRN').value.trim();
     let date = document.getElementById('regDate').value;
     if(!name || !mobile || !mrn) { alert("All fields required"); return; }
-    if(appData.patients.some(p=>p.mobile===mobile)) { alert("Mobile exists"); return; }
+    if(appData.patients.some(p=>p.mobile===mobile)) { alert("Mobile number already registered"); return; }
     let tasks = [];
     document.querySelectorAll('#adminDashboard input[type="checkbox"]:checked').forEach(cb => tasks.push(cb.value));
-    appData.patients.push({ id: Date.now(), name, mobile, mrn, regDate: date, tasksAssigned: tasks });
+    if(tasks.length === 0) { alert("Please select at least one task"); return; }
+    let newPatient = { id: Date.now(), name, mobile, mrn, regDate: date, tasksAssigned: tasks };
+    appData.patients.push(newPatient);
     saveData();
     renderPatientList();
-    alert("Patient registered");
+    alert("Patient registered successfully!");
     document.getElementById('regName').value = "";
     document.getElementById('regMobile').value = "";
     document.getElementById('regMRN').value = "";
+    document.getElementById('regDate').value = "";
 }
 
-// Event Listeners
+// ==================== EVENT LISTENERS ====================
 document.getElementById('adminLoginBtn').onclick = () => {
-    if(document.getElementById('adminPass').value === "4242") {
+    let pass = document.getElementById('adminPass').value;
+    if(pass === "4242") {
         document.getElementById('loginPanel').classList.add('hidden');
         document.getElementById('adminDashboard').classList.remove('hidden');
         document.getElementById('globalFooter').classList.remove('hidden');
         renderPatientList();
-    } else alert("Wrong password");
+    } else {
+        alert("Wrong password");
+    }
 };
+
 document.getElementById('patientLoginBtn').onclick = () => {
     let mob = document.getElementById('patientMobile').value.trim();
     let p = getPatientByMobile(mob);
@@ -479,15 +520,18 @@ document.getElementById('patientLoginBtn').onclick = () => {
             let wa = `https://wa.me/${p.mobile.replace(/^0/, '+252').replace(/[^0-9]/g,'')}?text=${encodeURIComponent(`My health records from Beregeel Clinic.`)}`;
             window.open(wa, '_blank');
         };
-    } else alert("Mobile not registered");
+    } else {
+        alert("Mobile number not registered. Please contact admin.");
+    }
 };
+
 document.getElementById('adminLogoutBtn').onclick = () => location.reload();
 document.getElementById('patientLogoutBtn').onclick = () => location.reload();
 document.getElementById('registerPatientBtn').onclick = registerPatient;
 document.getElementById('syncToSheetsBtn').onclick = syncToGoogleSheets;
 document.getElementById('loadFromSheetsBtn').onclick = loadFromGoogleSheets;
 
-console.log("App ready with all 5 forms!");
+console.log("✅ App ready with all 5 forms and Google Sheets sync!");
 </script>
 </body>
 </html>
