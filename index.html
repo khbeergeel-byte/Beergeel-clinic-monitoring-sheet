@@ -129,8 +129,7 @@
 </div>
 
 <script>
-const GOOGLE_SHEETS_WEBAPP_URL ="https://script.google.com/macros/s/AKfycbwJ9cG4fMHCol9O77jNcq8AmVl2mD3nj62k-3jxk-beXBT7Y4fBwKbPDS038XYDRoEMfQ/exec";
-let STORAGE_KEY = "Beregeel_Complete";
+const GOOGLE_SHEETS_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbzP1Q2VPIiAG4roaXICaSkxXqGKpTdw7sxqZFgBeLW1ylTSxHXacN6gU06CbqMerwkMQw/exec";
 let appData = { patients: [], medicalRecords: [] };
 
 function loadData() { let s = localStorage.getItem(STORAGE_KEY); if(s) { try { appData = JSON.parse(s); } catch(e) {} } if(!appData.patients) appData.patients = []; if(!appData.medicalRecords) appData.medicalRecords = []; }
