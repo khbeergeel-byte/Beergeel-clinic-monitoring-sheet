@@ -2,55 +2,51 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Beregeel Clinic | Obstetrics & Gynecology</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beregeel Clinic</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
         body { background: #eef2f7; padding: 20px; }
-        .app-container { max-width: 1400px; margin: 0 auto; }
-        .clinic-header, .clinic-footer { text-align: center; padding: 12px; background: linear-gradient(135deg, #1e5f4c, #1a6b56); color: white; border-radius: 20px; margin-bottom: 20px; }
-        .clinic-footer { margin-top: 20px; margin-bottom: 0; background: #1e5f4c; font-size: 0.85rem; }
-        .auth-panel, .dashboard { background: white; border-radius: 28px; padding: 24px 28px; margin-bottom: 25px; box-shadow: 0 12px 30px rgba(0,0,0,0.08); }
+        .app-container { max-width: 1200px; margin: 0 auto; }
+        .header, .footer { text-align: center; padding: 12px; background: #1e5f4c; color: white; border-radius: 20px; margin-bottom: 20px; }
+        .footer { margin-top: 20px; margin-bottom: 0; font-size: 0.85rem; }
+        .panel, .dashboard { background: white; border-radius: 24px; padding: 24px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
         .hidden { display: none; }
-        button { background: #1e6f5c; border: none; padding: 10px 20px; border-radius: 40px; color: white; font-weight: 600; cursor: pointer; transition: 0.2s; }
-        button:hover { background: #0e5a48; transform: translateY(-1px); }
-        input, select, textarea { border: 1px solid #cfdfda; border-radius: 20px; padding: 10px 16px; width: 100%; outline: none; }
-        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .card { background: #f9fbfa; border-radius: 24px; padding: 20px; margin: 15px 0; border: 1px solid #e2ece8; }
-        .scroll-table { overflow-x: auto; margin-top: 15px; border-radius: 16px; max-height: 500px; overflow-y: auto; }
-        table { width: 100%; border-collapse: collapse; background: white; min-width: 800px; }
-        th, td { text-align: left; padding: 10px 8px; border: 1px solid #cbdcd6; font-size: 13px; }
-        th { background: #e2f0ec; font-weight: 600; position: sticky; top: 0; }
-        .task-buttons { display: flex; flex-wrap: wrap; gap: 12px; margin: 20px 0; }
-        .task-btn { background: #289672; padding: 12px 20px; font-size: 1rem; }
-        .form-card { background: #f4f9f7; border-radius: 28px; padding: 20px; margin-top: 20px; overflow-x: auto; }
+        button { background: #1e6f5c; border: none; padding: 10px 20px; border-radius: 40px; color: white; font-weight: 600; cursor: pointer; }
+        button:hover { background: #0e5a48; }
+        input, select { border: 1px solid #cfdfda; border-radius: 20px; padding: 10px 16px; width: 100%; }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .card { background: #f9fbfa; border-radius: 20px; padding: 20px; margin: 15px 0; border: 1px solid #e2ece8; }
+        .scroll-table { overflow-x: auto; margin-top: 15px; }
+        table { width: 100%; border-collapse: collapse; background: white; }
+        th, td { padding: 10px 8px; border: 1px solid #cbdcd6; text-align: left; font-size: 13px; }
+        th { background: #e2f0ec; }
+        .task-btn { background: #289672; margin: 5px; }
         .logout-btn { background: #bc6c25; float: right; }
-        .nav-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 20px; }
-        .badge { background: #d4e6e0; padding: 5px 12px; border-radius: 50px; font-size: 0.8rem; }
-        .inline-check { display: inline-flex; align-items: center; gap: 5px; margin-right: 8px; }
+        .nav-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .badge { background: #d4e6e0; padding: 5px 12px; border-radius: 50px; display: inline-block; }
+        .inline-check { display: inline-flex; align-items: center; margin-right: 8px; }
         .checkbox-group { display: flex; flex-wrap: wrap; gap: 6px; }
-        .add-row-btn { margin-top: 15px; background: #3a7b6e; display: inline-block; }
+        .add-row-btn { margin-top: 15px; background: #3a7b6e; }
         .record-actions { display: flex; gap: 12px; margin-top: 20px; flex-wrap: wrap; }
         i { margin-right: 5px; }
-        .share-wa-btn { background: #25D366; margin-left: 10px; }
-        .google-sync-btn { background: #0f9d58; margin-top: 10px; width: 100%; }
-        .load-btn { background: #2c6e9e; margin-top: 8px; width: 100%; }
-        .title-clinic { font-size: 1.8rem; font-weight: 700; }
-        .small-text { font-size: 11px; margin-top: 8px; color: #666; }
-        input[type="checkbox"] { width: auto; margin-right: 5px; }
+        .share-btn { background: #25D366; }
+        .sync-btn { background: #0f9d58; margin-top: 10px; width: 100%; }
+        .title { font-size: 1.5rem; font-weight: 700; }
     </style>
 </head>
 <body>
 <div class="app-container">
-    <div class="clinic-header">
-        <div class="title-clinic"><i class="fas fa-female"></i> Beergeel Obstetrics and Gynecology Clinic</div>
+    <div class="header">
+        <div class="title"><i class="fas fa-female"></i> Beergeel Obstetrics and Gynecology Clinic</div>
         <div>Takhasusuka sare ee xanuunada dumarka</div>
     </div>
 
-    <div id="loginPanel" class="auth-panel">
+    <!-- Login Panel -->
+    <div id="loginPanel" class="panel">
         <div class="grid-2">
             <div class="card">
                 <h3><i class="fas fa-user-md"></i> Admin Login</h3>
@@ -61,31 +57,29 @@
                 <h3><i class="fas fa-user-patient"></i> Patient Login</h3>
                 <input type="text" id="patientMobile" placeholder="Mobile Number">
                 <button id="patientLoginBtn">Access My Records</button>
-                <div class="small-text"><i class="fab fa-whatsapp"></i> Data stays on your device</div>
             </div>
         </div>
     </div>
 
+    <!-- Admin Dashboard -->
     <div id="adminDashboard" class="dashboard hidden">
         <div class="nav-header">
-            <h2><i class="fas fa-chalkboard-user"></i> Admin Console</h2>
+            <h2>Admin Console</h2>
             <button id="adminLogoutBtn" class="logout-btn">Logout</button>
         </div>
         <div class="grid-2">
             <div class="card">
                 <h3>Register Patient</h3>
-                <div class="grid-2">
-                    <input type="text" id="regName" placeholder="Full Name">
-                    <input type="text" id="regMobile" placeholder="Mobile Number">
-                    <input type="text" id="regMRN" placeholder="MRN">
-                    <input type="date" id="regDate">
-                </div>
-                <label>Assign Tasks:</label>
-                <div style="display:flex; flex-wrap:wrap; gap:8px; margin:10px 0;">
-                    <label><input type="checkbox" value="BloodSugar" checked> Blood Sugar</label>
-                    <label><input type="checkbox" value="NauseaVomiting" checked> Nausea/Vomiting</label>
-                    <label><input type="checkbox" value="FetalMovement" checked> Fetal Movement</label>
-                    <label><input type="checkbox" value="BloodPressure" checked> Blood Pressure</label>
+                <input type="text" id="regName" placeholder="Full Name">
+                <input type="text" id="regMobile" placeholder="Mobile Number" style="margin-top:10px;">
+                <input type="text" id="regMRN" placeholder="MRN" style="margin-top:10px;">
+                <input type="date" id="regDate" style="margin-top:10px;">
+                <label style="margin-top:10px; display:block;">Assign Tasks:</label>
+                <div style="margin:10px 0;">
+                    <label><input type="checkbox" value="BloodSugar" checked> Blood Sugar</label><br>
+                    <label><input type="checkbox" value="NauseaVomiting" checked> Nausea/Vomiting</label><br>
+                    <label><input type="checkbox" value="FetalMovement" checked> Fetal Movement</label><br>
+                    <label><input type="checkbox" value="BloodPressure" checked> Blood Pressure</label><br>
                     <label><input type="checkbox" value="MenstrualPain" checked> Menstrual Pain</label>
                 </div>
                 <button id="registerPatientBtn">Register</button>
@@ -93,8 +87,7 @@
             <div class="card">
                 <h3>Patient List</h3>
                 <div id="patientListContainer"></div>
-                <button id="syncToSheetsBtn" class="google-sync-btn"> Sync to Google Sheets</button>
-                <button id="loadFromSheetsBtn" class="load-btn"> Load from Google Sheets</button>
+                <button id="syncBtn" class="sync-btn"><i class="fas fa-cloud-upload-alt"></i> Sync to Google Sheets</button>
             </div>
         </div>
         <div class="card">
@@ -104,154 +97,120 @@
         </div>
     </div>
 
+    <!-- Patient Dashboard -->
     <div id="patientDashboard" class="dashboard hidden">
         <div class="nav-header">
             <h2>My Dashboard</h2>
             <button id="patientLogoutBtn" class="logout-btn">Logout</button>
         </div>
         <div id="patientNameDisplay" class="badge"></div>
-        <div id="patientTasksButtons" class="task-buttons"></div>
-        <div id="activeTaskForm" class="form-card hidden"></div>
+        <div id="patientTasksButtons" class="scroll-table" style="margin:15px 0;"></div>
+        <div id="activeTaskForm" class="hidden"></div>
         <div class="card">
             <h4>My Previous Records</h4>
             <div style="text-align:right; margin-bottom:10px;">
-                <button id="shareAllTablesWA" class="share-wa-btn"> Share All Tables</button>
+                <button id="shareAllBtn" class="share-btn"><i class="fab fa-whatsapp"></i> Share All Tables</button>
             </div>
             <div id="prevRecordsList"></div>
         </div>
     </div>
 
-    <div id="globalFooter" class="clinic-footer hidden">
-        <i class="fas fa-map-marker-alt"></i> Xero awr kasoo horjeedka Ayuub Restaurant inyar ka xiga dhanka Masjid Nuur 
-        | <i class="fab fa-whatsapp"></i> Contact: 0634026635
+    <div class="footer hidden" id="globalFooter">
+        <i class="fas fa-map-marker-alt"></i> Xero awr kasoo horjeedka Ayuub Restaurant | <i class="fab fa-whatsapp"></i> Contact: 0634026635
     </div>
 </div>
 
 <script>
-// ==================== GOOGLE SHEETS URL ====================
-const GOOGLE_SHEETS_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbzP1Q2VPIiAG4roaXICaSkxXqGKpTdw7sxqZFgBeLW1ylTSxHXacN6gU06CbqMerwkMQw/exec";
+// ==================== CONFIGURATION ====================
+const GOOGLE_SHEETS_URL = "https://script.google.com/macros/s/AKfycbzP1Q2VPIiAG4roaXICaSkxXqGKpTdw7sxqZFgBeLW1ylTSxHXacN6gU06CbqMerwkMQw/exec";
 
-// ==================== DATA STORAGE ====================
-let STORAGE_KEY = "Beregeel_Complete_Final";
+// ==================== DATA ====================
 let appData = { patients: [], medicalRecords: [] };
+let currentLoggedPatient = null;
+let currentAdminViewPatientId = null;
+let currentTaskType = null;
+let currentRows = [];
 
-function loadData() { 
-    let saved = localStorage.getItem(STORAGE_KEY); 
-    if(saved) { 
-        try { appData = JSON.parse(saved); } catch(e) {} 
-    } 
-    if(!appData.patients) appData.patients = []; 
-    if(!appData.medicalRecords) appData.medicalRecords = []; 
+// Load/Save
+function loadData() {
+    let saved = localStorage.getItem("Beregeel_Data");
+    if(saved) {
+        try {
+            let parsed = JSON.parse(saved);
+            appData.patients = parsed.patients || [];
+            appData.medicalRecords = parsed.medicalRecords || [];
+        } catch(e) {}
+    }
 }
-
-function saveData() { 
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(appData)); 
+function saveData() {
+    localStorage.setItem("Beregeel_Data", JSON.stringify(appData));
 }
-
 loadData();
 
-function getPatientById(pid) { return appData.patients.find(p => p.id == pid); }
+function getPatientById(id) { return appData.patients.find(p => p.id == id); }
 function getPatientByMobile(mob) { return appData.patients.find(p => p.mobile === mob); }
 
-let currentAdminViewPatientId = null;
-let currentLoggedPatient = null;
-let currentTaskType = null;
-let currentTableRows = [];
-
 // ==================== GOOGLE SHEETS SYNC ====================
-async function syncToGoogleSheets() {
-    let btn = document.getElementById('syncToSheetsBtn');
+async function syncToSheets() {
+    let btn = document.getElementById('syncBtn');
     if(btn) { btn.disabled = true; btn.innerHTML = 'Syncing...'; }
     try {
-        let res = await fetch(GOOGLE_SHEETS_WEBAPP_URL, {
+        let res = await fetch(GOOGLE_SHEETS_URL, {
             method: 'POST',
-            mode: 'cors',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ action: 'syncAll', patients: appData.patients, medicalRecords: appData.medicalRecords })
         });
         let result = await res.json();
-        if(result.success) {
-            alert('✅ Data synced to Google Sheets!');
-        } else {
-            alert('Sync failed: ' + (result.error || 'Unknown error'));
-        }
+        if(result.success) alert('✅ Synced to Google Sheets!');
+        else alert('Sync failed: ' + (result.error || 'Unknown'));
     } catch(e) {
         alert('Connection error: ' + e.message);
     }
     if(btn) { btn.disabled = false; btn.innerHTML = ' Sync to Google Sheets'; }
 }
 
-async function loadFromGoogleSheets() {
-    try {
-        let res = await fetch(GOOGLE_SHEETS_WEBAPP_URL + '?action=getData');
-        let result = await res.json();
-        if(result.success && result.data) {
-            if(result.data.patients && result.data.patients.length > 0) { appData.patients = result.data.patients; }
-            if(result.data.medicalRecords && result.data.medicalRecords.length > 0) { appData.medicalRecords = result.data.medicalRecords; }
-            saveData();
-            alert('✅ Loaded from Google Sheets!');
-            if(currentAdminViewPatientId) showAdminTables(currentAdminViewPatientId);
-            renderPatientList();
-            if(currentLoggedPatient) renderPatientPreviousRecords();
-        } else {
-            alert('No data found in Google Sheets');
-        }
-    } catch(e) {
-        alert('Could not load: ' + e.message);
-    }
+// ==================== TASK HELPERS ====================
+function getEmptyRow(task) {
+    if(task === "BloodSugar") return { date: "", before_bf: "", after_bf: "", before_lunch: "", after_lunch: "", before_dinner: "", after_dinner: "", med: "No", remark: "" };
+    if(task === "NauseaVomiting") return { day: "", nausea: "Not at all", vomit: "Not at all", retch: "Not at all" };
+    if(task === "FetalMovement") return { date: "", start: "", end: "", moves: [false,false,false,false,false,false,false,false,false,false], remark: "" };
+    if(task === "BloodPressure") return { date: "", morning: "", afternoon: "", headache: "No", salt: "No", exercise: "No", med: "No", remark: "" };
+    if(task === "MenstrualPain") return { date: "", pain: "No", med: "No", nausea: "No", work: "No", bleeding_start: "No", bleeding_end: "No" };
+    return {};
 }
 
-// ==================== TASK FUNCTIONS ====================
-function getEmptyRow(taskType) {
-    switch(taskType) {
-        case "BloodSugar":
-            return { date: "", breakfast_before: "", breakfast_after: "", lunch_before: "", lunch_after: "", dinner_before: "", dinner_after: "", medication: "No", remark: "" };
-        case "NauseaVomiting":
-            return { day: "", nausea: "Not at all", vomiting: "Not at all", retching: "Not at all" };
-        case "FetalMovement":
-            return { date: "", startTime: "", endTime: "", movements: Array(10).fill(false), remark: "" };
-        case "BloodPressure":
-            return { date: "", morningBP: "", afternoonBP: "", headache: "No", saltFood: "No", exercise: "No", medication: "No", remark: "" };
-        case "MenstrualPain":
-            return { date: "", pain: "No", medication: "No", nausea: "No", workNormal: "No", bleedingStart: "No", bleedingEnd: "No" };
-        default: return {};
-    }
+function getHeaders(task) {
+    if(task === "BloodSugar") return ["Date","Breakfast Before","Breakfast After","Lunch Before","Lunch After","Dinner Before","Dinner After","Medication","Remark"];
+    if(task === "NauseaVomiting") return ["Day","Nausea","Vomiting","Retching"];
+    if(task === "FetalMovement") return ["Date","Start Time","End Time","Movements (1-10)","Remark"];
+    if(task === "BloodPressure") return ["Date","Morning BP","Afternoon BP","Headache","Salt Food","Exercise","Medication","Remark"];
+    if(task === "MenstrualPain") return ["Date","Pain","Medication","Nausea","Work Normal","Bleeding Start","Bleeding End"];
+    return [];
 }
 
-function getHeaders(taskType) {
-    switch(taskType) {
-        case "BloodSugar": return ["Date","Breakfast Before","Breakfast After","Lunch Before","Lunch After","Dinner Before","Dinner After","Medication","Remark"];
-        case "NauseaVomiting": return ["Day","Nausea Duration","Vomiting","Retching"];
-        case "FetalMovement": return ["Date","Start Time","End Time","Movements (1-10)","Remark"];
-        case "BloodPressure": return ["Date","Morning BP","Afternoon BP","Headache","Salt Food","Exercise","Medication","Remark"];
-        case "MenstrualPain": return ["Date","Pain","Medication","Nausea/Vomiting","Work Normal","Bleeding Started","Bleeding Ended"];
-        default: return [];
-    }
-}
-
-function renderTable(records, taskType, isAdmin = false) {
+// ==================== RENDER TABLES ====================
+function renderTable(records, task, isAdmin = false) {
     if(!records || records.length === 0) return "<em>No records</em>";
-    let headers = getHeaders(taskType);
-    let html = `<div class="scroll-table"><table><thead><tr>${headers.map(h => `<th>${h}</th>`).join('')}<th>Doctor Comment</th><th>Date</th>${isAdmin ? '<th>Action</th>' : ''}</tr></thead><tbody>`;
-    
-    records.forEach(record => {
-        (record.tableRows || []).forEach(row => {
+    let headers = getHeaders(task);
+    let html = `<div class="scroll-table"><table><thead><td>${headers.map(h => `<th>${h}</th>`).join('')}<th>Doctor Comment</th><th>Date</th>${isAdmin ? '<th>Action</th>' : ''}</tr></thead><tbody>`;
+    records.forEach(rec => {
+        (rec.rows || []).forEach(row => {
             html += "<tr>";
-            if(taskType === "BloodSugar") {
-                html += `<td>${row.date || ''}</td><td>${row.breakfast_before || ''}</td><td>${row.breakfast_after || ''}</td><td>${row.lunch_before || ''}</td><td>${row.lunch_after || ''}</td><td>${row.dinner_before || ''}</td><td>${row.dinner_after || ''}</td><td>${row.medication || ''}</td><td>${row.remark || ''}</td>`;
-            } else if(taskType === "NauseaVomiting") {
-                html += `<td>${row.day || ''}</td><td>${row.nausea || ''}</td><td>${row.vomiting || ''}</td><td>${row.retching || ''}</td>`;
-            } else if(taskType === "FetalMovement") {
-                let moves = (row.movements || []).map((c,i) => c ? i+1 : '').filter(v=>v).join(',');
-                html += `<td>${row.date || ''}</td><td>${row.startTime || ''}</td><td>${row.endTime || ''}</td><td>${moves || 'none'}</td><td>${row.remark || ''}</td>`;
-            } else if(taskType === "BloodPressure") {
-                html += `<td>${row.date || ''}</td><td>${row.morningBP || ''}</td><td>${row.afternoonBP || ''}</td><td>${row.headache || ''}</td><td>${row.saltFood || ''}</td><td>${row.exercise || ''}</td><td>${row.medication || ''}</td><td>${row.remark || ''}</td>`;
-            } else if(taskType === "MenstrualPain") {
-                html += `<td>${row.date || ''}</td><td>${row.pain || ''}</td><td>${row.medication || ''}</td><td>${row.nausea || ''}</td><td>${row.workNormal || ''}</td><td>${row.bleedingStart || ''}</td><td>${row.bleedingEnd || ''}</td>`;
+            if(task === "BloodSugar") {
+                html += `<td>${row.date || ''}</td><td>${row.before_bf || ''}</td><td>${row.after_bf || ''}</td><td>${row.before_lunch || ''}</td><td>${row.after_lunch || ''}</td><td>${row.before_dinner || ''}</td><td>${row.after_dinner || ''}</td><td>${row.med || ''}</td><td>${row.remark || ''}</td>`;
+            } else if(task === "NauseaVomiting") {
+                html += `<td>${row.day || ''}</td><td>${row.nausea || ''}</td><td>${row.vomit || ''}</td><td>${row.retch || ''}</td>`;
+            } else if(task === "FetalMovement") {
+                let moves = (row.moves || []).map((c,i) => c ? i+1 : '').filter(v=>v).join(',');
+                html += `<td>${row.date || ''}</td><td>${row.start || ''}</td><td>${row.end || ''}</td><td>${moves || 'none'}</td><td>${row.remark || ''}</td>`;
+            } else if(task === "BloodPressure") {
+                html += `<td>${row.date || ''}</td><td>${row.morning || ''}</td><td>${row.afternoon || ''}</td><td>${row.headache || ''}</td><td>${row.salt || ''}</td><td>${row.exercise || ''}</td><td>${row.med || ''}</td><td>${row.remark || ''}</td>`;
+            } else if(task === "MenstrualPain") {
+                html += `<td>${row.date || ''}</td><td>${row.pain || ''}</td><td>${row.med || ''}</td><td>${row.nausea || ''}</td><td>${row.work || ''}</td><td>${row.bleeding_start || ''}</td><td>${row.bleeding_end || ''}</td>`;
             }
-            html += `<td>${record.adminComment || '—'}</td><td>${new Date(record.timestamp).toLocaleDateString()}<tr>`;
+            html += `<td>${rec.comment || '—'}</td><td>${new Date(rec.timestamp).toLocaleDateString()}</td>`;
             if(isAdmin) {
-                html += `<td><button class="comment-btn" data-id="${record.id}" style="background:#e6b422;padding:4px 10px;">Comment</button></td>`;
+                html += `<td><button class="comment-btn" data-id="${rec.id}" style="background:#e6b422;padding:4px 10px;">Comment</button></td>`;
             }
             html += `</tr>`;
         });
@@ -260,163 +219,161 @@ function renderTable(records, taskType, isAdmin = false) {
     return html;
 }
 
+// ==================== PATIENT FUNCTIONS ====================
+function showTaskForm(task) {
+    currentTaskType = task;
+    currentRows = [getEmptyRow(task)];
+    let formDiv = document.getElementById('activeTaskForm');
+    formDiv.innerHTML = `<h3>${task}</h3><div id="tableContainer"></div>
+        <div class="record-actions"><button id="saveBtn">Save</button>
+        <button id="saveWABtn" class="share-btn">Save & WhatsApp</button>
+        <button id="ssBtn">Screenshot</button></div>`;
+    formDiv.classList.remove('hidden');
+    renderEditableForm();
+    
+    document.getElementById('saveBtn').onclick = () => submitRecord(false);
+    document.getElementById('saveWABtn').onclick = () => submitRecord(true);
+    document.getElementById('ssBtn').onclick = async () => {
+        let container = document.getElementById('tableContainer');
+        let canvas = await html2canvas(container);
+        let link = document.createElement('a');
+        link.download = `${task}.png`;
+        link.href = canvas.toDataURL();
+        link.click();
+        submitRecord(true);
+    };
+}
+
 function renderEditableForm() {
     let headers = getHeaders(currentTaskType);
-    let html = `<div class="scroll-table"><table><thead><tr>${headers.map(h => `<th>${h}</th>`).join('')}<th>Actions</th></tr></thead><tbody id="tableRowsBody">`;
-    
-    currentTableRows.forEach((row, idx) => {
-        html += `<tr data-idx="${idx}">`;
+    let html = `<div class="scroll-table"><table><thead></tr>${headers.map(h => `<th>${h}</th>`).join('')}<th>Actions</th></tr></thead><tbody id="rowsBody">`;
+    currentRows.forEach((row, idx) => {
+        html += `<tr>`;
         if(currentTaskType === "BloodSugar") {
             html += `<td><input type="date" data-field="date" value="${row.date}"></td>
-                     <td><input type="text" data-field="breakfast_before" value="${row.breakfast_before}" placeholder="value"></td>
-                     <td><input type="text" data-field="breakfast_after" value="${row.breakfast_after}"></td>
-                     <td><input type="text" data-field="lunch_before" value="${row.lunch_before}"></td>
-                     <td><input type="text" data-field="lunch_after" value="${row.lunch_after}"></td>
-                     <td><input type="text" data-field="dinner_before" value="${row.dinner_before}"></td>
-                     <td><input type="text" data-field="dinner_after" value="${row.dinner_after}"></td>
-                     <td><select data-field="medication"><option ${row.medication==='Yes'?'selected':''}>Yes</option><option ${row.medication==='No'?'selected':''}>No</option></select></td>
+                     <td><input type="text" data-field="before_bf" value="${row.before_bf}" placeholder="value"></td>
+                     <td><input type="text" data-field="after_bf" value="${row.after_bf}"></td>
+                     <td><input type="text" data-field="before_lunch" value="${row.before_lunch}"></td>
+                     <td><input type="text" data-field="after_lunch" value="${row.after_lunch}"></td>
+                     <td><input type="text" data-field="before_dinner" value="${row.before_dinner}"></td>
+                     <td><input type="text" data-field="after_dinner" value="${row.after_dinner}"></td>
+                     <td><select data-field="med"><option ${row.med==='Yes'?'selected':''}>Yes</option><option ${row.med==='No'?'selected':''}>No</option></select></td>
+                     <td><input type="text" data-field="remark" value="${row.remark}"></td>`;
+        } else if(currentTaskType === "FetalMovement") {
+            let chks = "";
+            for(let i=1;i<=10;i++) { chks += `<label class="inline-check"><input type="checkbox" class="move-chk" data-idx="${i-1}" ${row.moves?.[i-1] ? 'checked' : ''}> ${i}</label>`; }
+            html += `<td><input type="date" data-field="date" value="${row.date}"></td>
+                     <td><input type="time" data-field="start" value="${row.start}"></td>
+                     <td><input type="time" data-field="end" value="${row.end}"></td>
+                     <td><div class="checkbox-group">${chks}</div></td>
                      <td><input type="text" data-field="remark" value="${row.remark}"></td>`;
         } else if(currentTaskType === "NauseaVomiting") {
             let levels = ["Not at all","≤1 hr","2–3 hrs","4–6 hrs",">6 hrs"];
-            html += `<td><input type="text" data-field="day" placeholder="1st day, 2nd day..." value="${row.day}"></td>
+            html += `<td><input type="text" data-field="day" placeholder="1st day" value="${row.day}"></td>
                      <td><select data-field="nausea">${levels.map(l => `<option ${row.nausea===l?'selected':''}>${l}</option>`).join('')}</select></td>
-                     <td><select data-field="vomiting">${levels.map(l => `<option ${row.vomiting===l?'selected':''}>${l}</option>`).join('')}</select></td>
-                     <td><select data-field="retching">${levels.map(l => `<option ${row.retching===l?'selected':''}>${l}</option>`).join('')}</select></td>`;
-        } else if(currentTaskType === "FetalMovement") {
-            let chks = "";
-            for(let i=1;i<=10;i++) { chks += `<label class="inline-check"><input type="checkbox" class="movement-chk" data-idx="${i-1}" ${row.movements?.[i-1] ? 'checked' : ''}> ${i}</label>`; }
-            html += `<td><input type="date" data-field="date" value="${row.date}"></td>
-                     <td><input type="time" data-field="startTime" value="${row.startTime}"></td>
-                     <td><input type="time" data-field="endTime" value="${row.endTime}"></td>
-                     <td><div class="checkbox-group">${chks}</div></td>
-                     <td><input type="text" data-field="remark" value="${row.remark}"></td>`;
+                     <td><select data-field="vomit">${levels.map(l => `<option ${row.vomit===l?'selected':''}>${l}</option>`).join('')}</select></td>
+                     <td><select data-field="retch">${levels.map(l => `<option ${row.retch===l?'selected':''}>${l}</option>`).join('')}</select></td>`;
         } else if(currentTaskType === "BloodPressure") {
             html += `<td><input type="date" data-field="date" value="${row.date}"></td>
-                     <td><input type="text" data-field="morningBP" placeholder="120/80" value="${row.morningBP}"></td>
-                     <td><input type="text" data-field="afternoonBP" value="${row.afternoonBP}"></td>
+                     <td><input type="text" data-field="morning" placeholder="120/80" value="${row.morning}"></td>
+                     <td><input type="text" data-field="afternoon" value="${row.afternoon}"></td>
                      <td><select data-field="headache"><option ${row.headache==='Yes'?'selected':''}>Yes</option><option ${row.headache==='No'?'selected':''}>No</option></select></td>
-                     <td><select data-field="saltFood"><option ${row.saltFood==='Yes'?'selected':''}>Yes</option><option ${row.saltFood==='No'?'selected':''}>No</option></select></td>
+                     <td><select data-field="salt"><option ${row.salt==='Yes'?'selected':''}>Yes</option><option ${row.salt==='No'?'selected':''}>No</option></select></td>
                      <td><select data-field="exercise"><option ${row.exercise==='Yes'?'selected':''}>Yes</option><option ${row.exercise==='No'?'selected':''}>No</option></select></td>
-                     <td><select data-field="medication"><option ${row.medication==='Yes'?'selected':''}>Yes</option><option ${row.medication==='No'?'selected':''}>No</option></select></td>
+                     <td><select data-field="med"><option ${row.med==='Yes'?'selected':''}>Yes</option><option ${row.med==='No'?'selected':''}>No</option></select></td>
                      <td><input type="text" data-field="remark" value="${row.remark}"></td>`;
         } else if(currentTaskType === "MenstrualPain") {
             html += `<td><input type="date" data-field="date" value="${row.date}"></td>
                      <td><select data-field="pain"><option ${row.pain==='Yes'?'selected':''}>Yes</option><option ${row.pain==='No'?'selected':''}>No</option></select></td>
-                     <td><select data-field="medication"><option ${row.medication==='Yes'?'selected':''}>Yes</option><option ${row.medication==='No'?'selected':''}>No</option></select></td>
+                     <td><select data-field="med"><option ${row.med==='Yes'?'selected':''}>Yes</option><option ${row.med==='No'?'selected':''}>No</option></select></td>
                      <td><select data-field="nausea"><option ${row.nausea==='Yes'?'selected':''}>Yes</option><option ${row.nausea==='No'?'selected':''}>No</option></select></td>
-                     <td><select data-field="workNormal"><option ${row.workNormal==='Yes'?'selected':''}>Yes</option><option ${row.workNormal==='No'?'selected':''}>No</option></select></td>
-                     <td><select data-field="bleedingStart"><option ${row.bleedingStart==='Yes'?'selected':''}>Yes</option><option ${row.bleedingStart==='No'?'selected':''}>No</option></select></td>
-                     <td><select data-field="bleedingEnd"><option ${row.bleedingEnd==='Yes'?'selected':''}>Yes</option><option ${row.bleedingEnd==='No'?'selected':''}>No</option></select></td>`;
+                     <td><select data-field="work"><option ${row.work==='Yes'?'selected':''}>Yes</option><option ${row.work==='No'?'selected':''}>No</option></select></td>
+                     <td><select data-field="bleeding_start"><option ${row.bleeding_start==='Yes'?'selected':''}>Yes</option><option ${row.bleeding_start==='No'?'selected':''}>No</option></select></td>
+                     <td><select data-field="bleeding_end"><option ${row.bleeding_end==='Yes'?'selected':''}>Yes</option><option ${row.bleeding_end==='No'?'selected':''}>No</option></select></td>`;
         }
-        html += `<td><button class="remove-row" data-idx="${idx}"><i class="fas fa-trash"></i></button></td></tr>`;
+        html += `<td><button class="removeRow" data-idx="${idx}"><i class="fas fa-trash"></i></button></td></tr>`;
     });
-    html += `</tbody></table></div><button id="addNewRowBtn" class="add-row-btn"><i class="fas fa-plus"></i> Add Row</button>`;
-    document.getElementById('dynamicTableContainer').innerHTML = html;
+    html += `</tbody></table></div><button id="addRowBtn" class="add-row-btn"><i class="fas fa-plus"></i> Add Row</button>`;
+    document.getElementById('tableContainer').innerHTML = html;
     
-    document.querySelectorAll('.remove-row').forEach(btn => {
-        btn.onclick = () => { currentTableRows.splice(parseInt(btn.dataset.idx),1); if(currentTableRows.length===0) currentTableRows.push(getEmptyRow(currentTaskType)); renderEditableForm(); };
+    document.querySelectorAll('.removeRow').forEach(btn => {
+        btn.onclick = () => { currentRows.splice(parseInt(btn.dataset.idx),1); if(currentRows.length===0) currentRows.push(getEmptyRow(currentTaskType)); renderEditableForm(); };
     });
+    document.getElementById('addRowBtn').onclick = () => { currentRows.push(getEmptyRow(currentTaskType)); renderEditableForm(); };
 }
 
 function collectRows() {
     let rows = [];
-    let tbody = document.getElementById('tableRowsBody');
+    let tbody = document.getElementById('rowsBody');
     if(!tbody) return rows;
     for(let tr of tbody.children) {
         let row = getEmptyRow(currentTaskType);
         if(currentTaskType === "BloodSugar") {
             row.date = tr.querySelector("[data-field='date']")?.value || "";
-            row.breakfast_before = tr.querySelector("[data-field='breakfast_before']")?.value || "";
-            row.breakfast_after = tr.querySelector("[data-field='breakfast_after']")?.value || "";
-            row.lunch_before = tr.querySelector("[data-field='lunch_before']")?.value || "";
-            row.lunch_after = tr.querySelector("[data-field='lunch_after']")?.value || "";
-            row.dinner_before = tr.querySelector("[data-field='dinner_before']")?.value || "";
-            row.dinner_after = tr.querySelector("[data-field='dinner_after']")?.value || "";
-            row.medication = tr.querySelector("[data-field='medication']")?.value || "No";
+            row.before_bf = tr.querySelector("[data-field='before_bf']")?.value || "";
+            row.after_bf = tr.querySelector("[data-field='after_bf']")?.value || "";
+            row.before_lunch = tr.querySelector("[data-field='before_lunch']")?.value || "";
+            row.after_lunch = tr.querySelector("[data-field='after_lunch']")?.value || "";
+            row.before_dinner = tr.querySelector("[data-field='before_dinner']")?.value || "";
+            row.after_dinner = tr.querySelector("[data-field='after_dinner']")?.value || "";
+            row.med = tr.querySelector("[data-field='med']")?.value || "No";
+            row.remark = tr.querySelector("[data-field='remark']")?.value || "";
+        } else if(currentTaskType === "FetalMovement") {
+            row.date = tr.querySelector("[data-field='date']")?.value || "";
+            row.start = tr.querySelector("[data-field='start']")?.value || "";
+            row.end = tr.querySelector("[data-field='end']")?.value || "";
+            let moves = Array(10).fill(false);
+            tr.querySelectorAll(".move-chk").forEach(chk => { if(chk.checked) moves[parseInt(chk.dataset.idx)] = true; });
+            row.moves = moves;
             row.remark = tr.querySelector("[data-field='remark']")?.value || "";
         } else if(currentTaskType === "NauseaVomiting") {
             row.day = tr.querySelector("[data-field='day']")?.value || "";
             row.nausea = tr.querySelector("[data-field='nausea']")?.value || "Not at all";
-            row.vomiting = tr.querySelector("[data-field='vomiting']")?.value || "Not at all";
-            row.retching = tr.querySelector("[data-field='retching']")?.value || "Not at all";
-        } else if(currentTaskType === "FetalMovement") {
-            row.date = tr.querySelector("[data-field='date']")?.value || "";
-            row.startTime = tr.querySelector("[data-field='startTime']")?.value || "";
-            row.endTime = tr.querySelector("[data-field='endTime']")?.value || "";
-            let moves = Array(10).fill(false);
-            tr.querySelectorAll(".movement-chk").forEach(chk => { if(chk.checked) moves[parseInt(chk.dataset.idx)] = true; });
-            row.movements = moves;
-            row.remark = tr.querySelector("[data-field='remark']")?.value || "";
+            row.vomit = tr.querySelector("[data-field='vomit']")?.value || "Not at all";
+            row.retch = tr.querySelector("[data-field='retch']")?.value || "Not at all";
         } else if(currentTaskType === "BloodPressure") {
             row.date = tr.querySelector("[data-field='date']")?.value || "";
-            row.morningBP = tr.querySelector("[data-field='morningBP']")?.value || "";
-            row.afternoonBP = tr.querySelector("[data-field='afternoonBP']")?.value || "";
+            row.morning = tr.querySelector("[data-field='morning']")?.value || "";
+            row.afternoon = tr.querySelector("[data-field='afternoon']")?.value || "";
             row.headache = tr.querySelector("[data-field='headache']")?.value || "No";
-            row.saltFood = tr.querySelector("[data-field='saltFood']")?.value || "No";
+            row.salt = tr.querySelector("[data-field='salt']")?.value || "No";
             row.exercise = tr.querySelector("[data-field='exercise']")?.value || "No";
-            row.medication = tr.querySelector("[data-field='medication']")?.value || "No";
+            row.med = tr.querySelector("[data-field='med']")?.value || "No";
             row.remark = tr.querySelector("[data-field='remark']")?.value || "";
         } else if(currentTaskType === "MenstrualPain") {
             row.date = tr.querySelector("[data-field='date']")?.value || "";
             row.pain = tr.querySelector("[data-field='pain']")?.value || "No";
-            row.medication = tr.querySelector("[data-field='medication']")?.value || "No";
+            row.med = tr.querySelector("[data-field='med']")?.value || "No";
             row.nausea = tr.querySelector("[data-field='nausea']")?.value || "No";
-            row.workNormal = tr.querySelector("[data-field='workNormal']")?.value || "No";
-            row.bleedingStart = tr.querySelector("[data-field='bleedingStart']")?.value || "No";
-            row.bleedingEnd = tr.querySelector("[data-field='bleedingEnd']")?.value || "No";
+            row.work = tr.querySelector("[data-field='work']")?.value || "No";
+            row.bleeding_start = tr.querySelector("[data-field='bleeding_start']")?.value || "No";
+            row.bleeding_end = tr.querySelector("[data-field='bleeding_end']")?.value || "No";
         }
         rows.push(row);
     }
     return rows;
 }
 
-function showTaskForm(taskType) {
-    currentTaskType = taskType;
-    currentTableRows = [getEmptyRow(taskType)];
-    document.getElementById('activeTaskForm').innerHTML = `<h3>${taskType}</h3><div id="dynamicTableContainer"></div>
-        <div class="record-actions"><button id="saveLocalBtn"><i class="fas fa-save"></i> Save</button>
-        <button id="saveWABtn"><i class="fab fa-whatsapp"></i> Save & WhatsApp</button>
-        <button id="screenshotBtn"><i class="fas fa-camera"></i> Screenshot</button></div>`;
-    document.getElementById('activeTaskForm').classList.remove('hidden');
-    renderEditableForm();
-    
-    document.getElementById('saveLocalBtn').onclick = () => submitRecord(false);
-    document.getElementById('saveWABtn').onclick = () => submitRecord(true);
-    document.getElementById('screenshotBtn').onclick = async () => {
-        let container = document.getElementById('dynamicTableContainer');
-        let canvas = await html2canvas(container);
-        let link = document.createElement('a');
-        link.download = `${currentTaskType}.png`;
-        link.href = canvas.toDataURL();
-        link.click();
-        submitRecord(true);
-    };
-    document.getElementById('addNewRowBtn').onclick = () => { currentTableRows.push(getEmptyRow(currentTaskType)); renderEditableForm(); };
-}
-
 function submitRecord(sendWA) {
     let rows = collectRows();
-    if(rows.length === 0 || (rows.length === 1 && Object.values(rows[0]).every(v => v === "" || v === false || v === "No" || v === "Not at all"))) { 
-        alert("Please fill at least one row before submitting"); 
-        return; 
-    }
-    let record = { id: Date.now(), patientId: currentLoggedPatient.id, taskType: currentTaskType, tableRows: rows, timestamp: Date.now(), adminComment: "" };
+    if(rows.length === 0) { alert("Fill at least one row"); return; }
+    let record = { id: Date.now(), patientId: currentLoggedPatient.id, task: currentTaskType, rows: rows, timestamp: Date.now(), comment: "" };
     appData.medicalRecords.push(record);
     saveData();
-    alert("Saved locally!");
+    alert("Saved!");
     if(sendWA) {
         let wa = `https://wa.me/${currentLoggedPatient.mobile.replace(/^0/, '+252').replace(/[^0-9]/g,'')}?text=${encodeURIComponent(`My ${currentTaskType} data submitted to Beregeel Clinic.`)}`;
         window.open(wa, '_blank');
     }
     document.getElementById('activeTaskForm').classList.add('hidden');
-    renderPatientPreviousRecords();
+    renderPatientRecords();
 }
 
-function renderPatientPreviousRecords() {
+function renderPatientRecords() {
     let records = appData.medicalRecords.filter(r => r.patientId === currentLoggedPatient.id);
-    if(records.length === 0) { document.getElementById('prevRecordsList').innerHTML = "<em>No records yet</em>"; return; }
+    if(records.length === 0) { document.getElementById('prevRecordsList').innerHTML = "<em>No records</em>"; return; }
     let grouped = {};
-    records.forEach(r => { if(!grouped[r.taskType]) grouped[r.taskType] = []; grouped[r.taskType].push(r); });
+    records.forEach(r => { if(!grouped[r.task]) grouped[r.task] = []; grouped[r.task].push(r); });
     let html = "";
     for(let task in grouped) { html += `<h4>${task}</h4>` + renderTable(grouped[task], task, false); }
     document.getElementById('prevRecordsList').innerHTML = html;
@@ -429,16 +386,14 @@ function renderPatientTasks(patient) {
     document.querySelectorAll('.task-btn').forEach(btn => { btn.onclick = () => showTaskForm(btn.dataset.task); });
 }
 
+// ==================== ADMIN FUNCTIONS ====================
 function renderPatientList() {
-    if(appData.patients.length === 0) {
-        document.getElementById('patientListContainer').innerHTML = "<em>No patients registered</em>";
-        return;
-    }
+    if(appData.patients.length === 0) { document.getElementById('patientListContainer').innerHTML = "<em>No patients</em>"; return; }
     let html = "<ul style='list-style:none;'>";
-    appData.patients.forEach(p => { html += `<li style="margin-bottom:8px;"><button class="patient-select" data-id="${p.id}" style="background:#cbdcd6; padding:8px 15px;">${p.name} (${p.mrn})</button></li>`; });
+    appData.patients.forEach(p => { html += `<li style="margin-bottom:8px;"><button class="selectPatient" data-id="${p.id}" style="background:#cbdcd6;">${p.name} (${p.mrn})</button></li>`; });
     html += "</ul>";
     document.getElementById('patientListContainer').innerHTML = html;
-    document.querySelectorAll('.patient-select').forEach(btn => {
+    document.querySelectorAll('.selectPatient').forEach(btn => {
         btn.onclick = () => { currentAdminViewPatientId = parseInt(btn.dataset.id); showAdminTables(currentAdminViewPatientId); };
     });
 }
@@ -450,16 +405,16 @@ function showAdminTables(pid) {
     let records = appData.medicalRecords.filter(r => r.patientId === pid);
     let html = "";
     for(let task of (p.tasksAssigned || [])) {
-        let taskRecords = records.filter(r => r.taskType === task);
+        let taskRecords = records.filter(r => r.task === task);
         html += `<div class="card"><h4>${task}</h4>${renderTable(taskRecords, task, true)}</div>`;
     }
     document.getElementById('taskRecordsView').innerHTML = html;
     document.querySelectorAll('.comment-btn').forEach(btn => {
         btn.onclick = () => {
-            let comment = prompt("Enter doctor comment:");
-            if(comment && comment.trim()) {
+            let comment = prompt("Doctor comment:");
+            if(comment) {
                 let rec = appData.medicalRecords.find(r => r.id === parseInt(btn.dataset.id));
-                if(rec) { rec.adminComment = comment; saveData(); showAdminTables(pid); alert("Comment added"); }
+                if(rec) { rec.comment = comment; saveData(); showAdminTables(pid); alert("Comment added"); }
             }
         };
     });
@@ -471,32 +426,27 @@ function registerPatient() {
     let mrn = document.getElementById('regMRN').value.trim();
     let date = document.getElementById('regDate').value;
     if(!name || !mobile || !mrn) { alert("All fields required"); return; }
-    if(appData.patients.some(p=>p.mobile===mobile)) { alert("Mobile number already registered"); return; }
+    if(appData.patients.some(p=>p.mobile===mobile)) { alert("Mobile exists"); return; }
     let tasks = [];
     document.querySelectorAll('#adminDashboard input[type="checkbox"]:checked').forEach(cb => tasks.push(cb.value));
-    if(tasks.length === 0) { alert("Please select at least one task"); return; }
-    let newPatient = { id: Date.now(), name, mobile, mrn, regDate: date, tasksAssigned: tasks };
-    appData.patients.push(newPatient);
+    appData.patients.push({ id: Date.now(), name, mobile, mrn, regDate: date, tasksAssigned: tasks });
     saveData();
     renderPatientList();
-    alert("Patient registered successfully!");
+    alert("Patient registered!");
     document.getElementById('regName').value = "";
     document.getElementById('regMobile').value = "";
     document.getElementById('regMRN').value = "";
     document.getElementById('regDate').value = "";
 }
 
-// ==================== EVENT LISTENERS ====================
+// ==================== LOGIN ====================
 document.getElementById('adminLoginBtn').onclick = () => {
-    let pass = document.getElementById('adminPass').value;
-    if(pass === "4242") {
+    if(document.getElementById('adminPass').value === "4242") {
         document.getElementById('loginPanel').classList.add('hidden');
         document.getElementById('adminDashboard').classList.remove('hidden');
         document.getElementById('globalFooter').classList.remove('hidden');
         renderPatientList();
-    } else {
-        alert("Wrong password");
-    }
+    } else alert("Wrong password");
 };
 
 document.getElementById('patientLoginBtn').onclick = () => {
@@ -509,29 +459,26 @@ document.getElementById('patientLoginBtn').onclick = () => {
         document.getElementById('globalFooter').classList.remove('hidden');
         document.getElementById('patientNameDisplay').innerHTML = `${p.name} (MRN: ${p.mrn})`;
         renderPatientTasks(p);
-        renderPatientPreviousRecords();
-        document.getElementById('shareAllTablesWA').onclick = async () => {
+        renderPatientRecords();
+        document.getElementById('shareAllBtn').onclick = async () => {
             let container = document.getElementById('prevRecordsList');
-            let canvas = await html2canvas(container, { scale: 2 });
+            let canvas = await html2canvas(container);
             let link = document.createElement('a');
-            link.download = 'my_records.png';
+            link.download = 'records.png';
             link.href = canvas.toDataURL();
             link.click();
             let wa = `https://wa.me/${p.mobile.replace(/^0/, '+252').replace(/[^0-9]/g,'')}?text=${encodeURIComponent(`My health records from Beregeel Clinic.`)}`;
             window.open(wa, '_blank');
         };
-    } else {
-        alert("Mobile number not registered. Please contact admin.");
-    }
+    } else alert("Mobile not registered");
 };
 
 document.getElementById('adminLogoutBtn').onclick = () => location.reload();
 document.getElementById('patientLogoutBtn').onclick = () => location.reload();
 document.getElementById('registerPatientBtn').onclick = registerPatient;
-document.getElementById('syncToSheetsBtn').onclick = syncToGoogleSheets;
-document.getElementById('loadFromSheetsBtn').onclick = loadFromGoogleSheets;
+document.getElementById('syncBtn').onclick = syncToSheets;
 
-console.log("✅ App ready with all 5 forms and Google Sheets sync!");
+console.log("App ready!");
 </script>
 </body>
 </html>
